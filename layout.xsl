@@ -37,7 +37,7 @@
 
 
 	<xsl:template match="rack">
-		<g transform="translate({ ( count(preceding-sibling::rack) * 220 ) + 20 },100)">
+		<g transform="translate({ ( count(preceding-sibling::rack) * 250 ) + 50 },100)">
 			<text x="20" y="20" fill="black">
 				<xsl:value-of select="name" />
 			</text>
@@ -137,11 +137,23 @@
 
 	<xsl:template match="item">
 		<xsl:element name="g">
-			<xsl:attribute name="transform">
-				<xsl:text>translate(0,</xsl:text>
-				<xsl:value-of select="$scale * location" />
-				<xsl:text>)</xsl:text>
-			</xsl:attribute>
+			<xsl:choose>
+				<xsl:when	test="../order = 'descend'">
+					<xsl:attribute name="transform">
+						<xsl:text>translate(0,</xsl:text>
+						<xsl:value-of select="$scale * (../height - location)" />
+						<xsl:text>)</xsl:text>
+					</xsl:attribute>
+				</xsl:when>
+
+				<xsl:otherwise>
+					<xsl:attribute name="transform">
+						<xsl:text>translate(0,</xsl:text>
+						<xsl:value-of select="$scale * location" />
+						<xsl:text>)</xsl:text>
+					</xsl:attribute>
+				</xsl:otherwise>
+			</xsl:choose>
 
 			<xsl:element name="rect">
 				<xsl:attribute name="x">0</xsl:attribute>

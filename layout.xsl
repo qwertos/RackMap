@@ -95,6 +95,8 @@
 
 	</xsl:template>
 
+
+
 	<xsl:template name="rubreaks">
 		<xsl:param name="pCurrent" />
 		<xsl:param name="pStop" />
@@ -130,6 +132,8 @@
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
+
+
 
 	<xsl:template match="item">
 		<xsl:element name="g">

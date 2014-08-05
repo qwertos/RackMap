@@ -32,7 +32,7 @@
 
 
 	<xsl:template match="rack">
-		<g transform="translate({ ( count(../preceding-sibling::rack) * 210 ) + 10 },100)">
+		<g transform="translate({ ( count(preceding-sibling::rack) * 210 ) + 10 },100)">
 			<text x="20" y="20" fill="black">
 				<xsl:value-of select="name" />
 			</text>

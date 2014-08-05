@@ -37,7 +37,7 @@
 
 
 	<xsl:template match="rack">
-		<g transform="translate({ ( count(preceding-sibling::rack) * 210 ) + 10 },100)">
+		<g transform="translate({ ( count(preceding-sibling::rack) * 220 ) + 20 },100)">
 			<text x="20" y="20" fill="black">
 				<xsl:value-of select="name" />
 			</text>
@@ -63,13 +63,73 @@
 						<xsl:value-of select="$scale * height" />
 					</xsl:attribute>
 				</xsl:element>
-	
+
+				<xsl:call-template name="rubreaks">
+					<xsl:with-param name="pCurrent" select="1" />
+					<xsl:with-param name="pStop" select="height" />
+				</xsl:call-template>
+
 				<xsl:apply-templates select="item"/>
+
+				<xsl:element name="line">
+					<xsl:attribute name="x1">10</xsl:attribute>
+					<xsl:attribute name="y1">0</xsl:attribute>
+					<xsl:attribute name="x2">10</xsl:attribute>
+					<xsl:attribute name="y2">
+						<xsl:value-of select="$scale * height" />
+					</xsl:attribute>
+					<xsl:attribute name="stroke">black</xsl:attribute>
+				</xsl:element>
+					
+				<xsl:element name="line">
+					<xsl:attribute name="x1">190</xsl:attribute>
+					<xsl:attribute name="y1">0</xsl:attribute>
+					<xsl:attribute name="x2">190</xsl:attribute>
+					<xsl:attribute name="y2">
+						<xsl:value-of select="$scale * height" />
+					</xsl:attribute>
+					<xsl:attribute name="stroke">black</xsl:attribute>
+				</xsl:element>
 			</g>
 		</g>
 
 	</xsl:template>
 
+	<xsl:template name="rubreaks">
+		<xsl:param name="pCurrent" />
+		<xsl:param name="pStop" />
+
+		<xsl:element name="line">
+			<xsl:attribute name="x1">0</xsl:attribute>
+			<xsl:attribute name="y1">
+				<xsl:value-of select="$pCurrent * $scale" />
+			</xsl:attribute>
+			<xsl:attribute name="x2">10</xsl:attribute>
+			<xsl:attribute name="y2">
+				<xsl:value-of select="$pCurrent * $scale" />
+			</xsl:attribute>
+			<xsl:attribute name="stroke">black</xsl:attribute>
+		</xsl:element>
+
+		<xsl:element name="line">
+			<xsl:attribute name="x1">190</xsl:attribute>
+			<xsl:attribute name="y1">
+				<xsl:value-of select="$pCurrent * $scale" />
+			</xsl:attribute>
+			<xsl:attribute name="x2">200</xsl:attribute>
+			<xsl:attribute name="y2">
+				<xsl:value-of select="$pCurrent * $scale" />
+			</xsl:attribute>
+			<xsl:attribute name="stroke">black</xsl:attribute>
+		</xsl:element>
+
+		<xsl:if test="$pCurrent &lt; $pStop">
+			<xsl:call-template name="rubreaks">
+				<xsl:with-param name="pCurrent" select="$pCurrent + 1" />
+				<xsl:with-param name="pStop" select="$pStop" />
+			</xsl:call-template>
+		</xsl:if>
+	</xsl:template>
 
 	<xsl:template match="item">
 		<xsl:element name="g">

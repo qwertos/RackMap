@@ -83,7 +83,16 @@
 				<xsl:attribute name="x">0</xsl:attribute>
 				<xsl:attribute name="y">0</xsl:attribute>
 				<xsl:attribute name="width">200</xsl:attribute>
-				<xsl:attribute name="fill">none</xsl:attribute>
+				<xsl:choose>
+					<xsl:when test="@fill">
+						<xsl:attribute name="fill">
+							<xsl:value-of select="@fill" />
+						</xsl:attribute>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:attribute name="fill">lightgray</xsl:attribute>
+					</xsl:otherwise>
+				</xsl:choose>
 				<xsl:attribute name="stroke">black</xsl:attribute>
 				<xsl:attribute name="height">
 					<xsl:value-of select="$scale * height" />

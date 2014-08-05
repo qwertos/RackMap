@@ -69,6 +69,11 @@
 					<xsl:with-param name="pStop" select="height" />
 				</xsl:call-template>
 
+				<xsl:call-template name="ruindex">
+					<xsl:with-param name="pCurrent" select="1" />
+					<xsl:with-param name="pStop" select="height" />
+				</xsl:call-template>
+
 				<xsl:apply-templates select="item"/>
 
 				<xsl:element name="line">
@@ -94,6 +99,32 @@
 		</g>
 
 	</xsl:template>
+
+
+	<xsl:template name="ruindex">
+		<xsl:param name="pCurrent" />
+		<xsl:param name="pStop" />
+
+		<xsl:element name="text">
+			<xsl:attribute name="x">-20</xsl:attribute>
+			<xsl:attribute name="y">
+				<xsl:value-of select="($scale * ( height - $pCurrent )) + 15 " />
+			</xsl:attribute>
+			<xsl:attribute name="stroke">black</xsl:attribute>
+
+			<xsl:value-of select="$pCurrent" />
+
+		</xsl:element>
+
+		<xsl:if test="$pCurrent &lt; $pStop">
+			<xsl:call-template name="ruindex">
+				<xsl:with-param name="pCurrent" select="$pCurrent + 1" />
+				<xsl:with-param name="pStop" select="$pStop" />
+			</xsl:call-template>
+		</xsl:if>
+			
+	</xsl:template>
+
 
 
 

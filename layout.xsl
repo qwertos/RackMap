@@ -16,9 +16,32 @@
 
 
 	<xsl:template match="datacenter">
-		<text x="10" y="10" fill="red">THIS IS A TEST</text>
+		<text x="20" y="20" fill="black">
+			<xsl:value-of select="name" />
+		</text>
+		<text x="20" y="40" fill="black">
+			<xsl:value-of select="location" />
+		</text>
+		<text x="20" y="60" fill="black">
+			<xsl:value-of select="owner" />
+		</text>
+
+		<g transform="translate(10,100)">
+			<xsl:apply-templates select="rack" />
+		</g>
 	</xsl:template>
 
+	<xsl:template match="rack">
+		<text x="20" y="20" fill="black">
+			<xsl:value-of select="name" />
+		</text>
+		<text x="20" y="40" fill="black">
+			<xsl:value-of select="location" />
+		</text>
+		<text x="20" y="60" fill="black">
+			<xsl:value-of select="owner" />
+		</text>
+	</xsl:template>
 
 
 </xsl:stylesheet>

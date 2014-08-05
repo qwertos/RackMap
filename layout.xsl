@@ -110,7 +110,6 @@
 			<xsl:attribute name="y">
 				<xsl:value-of select="($scale * ( height - $pCurrent )) + 15 " />
 			</xsl:attribute>
-			<xsl:attribute name="stroke">black</xsl:attribute>
 
 			<xsl:value-of select="$pCurrent" />
 

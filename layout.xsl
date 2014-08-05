@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" 
+	xmlns:svg="http://www.w3.org/2000/svg"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns="http://www.w3.org/2000/svg">
 
 	<xsl:variable name="scale" select="/datacenter/@scale" />
 
@@ -13,9 +16,7 @@
 
 
 	<xsl:template match="datacenter">
-		<text x="10" y="10">
-			<xsl:value-of select="name" />
-		</text>
+		<text x="10" y="10" fill="red">THIS IS A TEST</text>
 	</xsl:template>
 
 

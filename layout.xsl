@@ -25,6 +25,9 @@
 		<text x="20" y="60" fill="black">
 			<xsl:value-of select="owner" />
 		</text>
+		<text x="20" y="80" fill="black">
+			<xsl:value-of select="contact" />
+		</text>
 
 		<xsl:apply-templates select="rack" />
 	</xsl:template>
@@ -41,6 +44,9 @@
 			</text>
 			<text x="20" y="60" fill="black">
 				<xsl:value-of select="owner" />
+			</text>
+			<text x="20" y="80" fill="black">
+				<xsl:value-of select="contact" />
 			</text>
 	
 	

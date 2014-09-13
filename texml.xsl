@@ -13,6 +13,41 @@
 				<opt>letterpaper</opt>
 				<parm>article</parm>
 			</cmd>
+			<cmd name="usepackage">
+				<parm>tikz</parm>
+			</cmd>
+			<cmd name="newcommand\datacenter">
+				<opt>4</opt>
+				<parm>
+					<spec cat="parm" />
+					<xsl:text>1</xsl:text>
+					<ctrl ch="\"/>
+					<spec cat="parm" />
+					<xsl:text>2</xsl:text>
+					<ctrl ch="\"/>
+					<spec cat="parm" />
+					<xsl:text>3</xsl:text>
+					<ctrl ch="\"/>
+					<spec cat="parm" />
+					<xsl:text>4</xsl:text>
+				</parm>
+			</cmd>
+			<cmd name="newcommand\rack">
+				<opt>4</opt>
+				<parm>
+					<spec cat="parm" />
+					<xsl:text>1</xsl:text>
+					<ctrl ch="\"/>
+					<spec cat="parm" />
+					<xsl:text>2</xsl:text>
+					<ctrl ch="\"/>
+					<spec cat="parm" />
+					<xsl:text>3</xsl:text>
+					<ctrl ch="\"/>
+					<spec cat="parm" />
+					<xsl:text>4</xsl:text>
+				</parm>
+			</cmd>
 			<env name="document">
 				<xsl:apply-templates select="datacenter" />
 			</env>
@@ -23,34 +58,30 @@
 
 <!-- TODO PLACEHOLDER -->
 	<xsl:template match="datacenter">
-		<cmd name="section">
+		<cmd name="datacenter">
 			<parm><xsl:value-of select="name" /></parm>
+			<parm><xsl:value-of select="location" /></parm>
+			<parm><xsl:value-of select="owner" /></parm>
+			<parm><xsl:value-of select="contact" /></parm>
 		</cmd>
-		<xsl:value-of select="location" />
-		<xsl:value-of select="owner" />
-		<xsl:value-of select="contact" />
 
-		<!--<xsl:apply-templates select="rack" /> -->
+		<!--
+		<xsl:apply-templates select="rack" />
+		-->
 	</xsl:template>
 
 
 
 	<xsl:template match="rack">
 		<g transform="translate({ ( count(preceding-sibling::rack) * 250 ) + 50 },100)">
-			<text x="20" y="20" fill="black">
-				<xsl:value-of select="name" />
-			</text>
-			<text x="20" y="40" fill="black">
-				<xsl:value-of select="location" />
-			</text>
-			<text x="20" y="60" fill="black">
-				<xsl:value-of select="owner" />
-			</text>
-			<text x="20" y="80" fill="black">
-				<xsl:value-of select="contact" />
-			</text>
-	
-	
+			<cmd name="rack">
+				<parm><xsl:value-of select="name" /></parm>
+				<parm><xsl:value-of select="location" /></parm>
+				<parm><xsl:value-of select="owner" /></parm>
+				<parm><xsl:value-of select="contact" /></parm>
+			</cmd>	
+			
+			<!--
 			<g transform="translate(10,100)">
 				<xsl:element name="rect">
 					<xsl:attribute name="x">0</xsl:attribute>
@@ -95,6 +126,7 @@
 					<xsl:attribute name="stroke">black</xsl:attribute>
 				</xsl:element>
 			</g>
+		-->
 		</g>
 
 	</xsl:template>

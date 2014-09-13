@@ -11,9 +11,11 @@
 		<TeXML>
 			<cmd name="documentclass">
 				<opt>letterpaper</opt>
-				<param>minimal</param>
+				<parm>article</parm>
 			</cmd>
-			<xsl:apply-templates select="datacenter" />
+			<env name="document">
+				<xsl:apply-templates select="datacenter" />
+			</env>
 		</TeXML>
 	</xsl:template>
 
@@ -21,20 +23,14 @@
 
 <!-- TODO PLACEHOLDER -->
 	<xsl:template match="datacenter">
-		<text x="20" y="20" fill="black">
-			<xsl:value-of select="name" />
-		</text>
-		<text x="20" y="40" fill="black">
-			<xsl:value-of select="location" />
-		</text>
-		<text x="20" y="60" fill="black">
-			<xsl:value-of select="owner" />
-		</text>
-		<text x="20" y="80" fill="black">
-			<xsl:value-of select="contact" />
-		</text>
+		<cmd name="section">
+			<parm><xsl:value-of select="name" /></parm>
+		</cmd>
+		<xsl:value-of select="location" />
+		<xsl:value-of select="owner" />
+		<xsl:value-of select="contact" />
 
-		<xsl:apply-templates select="rack" />
+		<!--<xsl:apply-templates select="rack" /> -->
 	</xsl:template>
 
 

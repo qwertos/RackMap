@@ -219,6 +219,11 @@
 		</xsl:if>
 	</xsl:template>
 
+
+	<xsl:template match="slot">
+		
+	</xsl:template>
+
 </xsl:stylesheet>
 
 

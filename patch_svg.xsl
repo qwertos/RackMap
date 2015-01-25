@@ -65,7 +65,7 @@
 	-->
 
 	<xsl:template match="rack">
-		<xsl:variable name="ytrans" select="( sum(preceding-sibling::rack/item[@type='patch']/height) * 60 ) + ( count(preceding-sibling::rack) * 100 ) + 100" />
+		<xsl:variable name="ytrans" select="( sum(preceding-sibling::rack/item[@type='patch']/internal-layout/@vertical) * 60 ) + ( count(preceding-sibling::rack) * 100 ) + 100" />
 		
 		<g transform="translate(50, { $ytrans })">
 			<text x="20" y="20" fill="black">
@@ -94,7 +94,7 @@
 		<xsl:element name="g">
 			<xsl:attribute name="transform">
 				<xsl:text>translate(0,</xsl:text>
-				<xsl:value-of select="sum(preceding-sibling::item[@type='patch']/height) * 60" />
+				<xsl:value-of select="sum(preceding-sibling::item[@type='patch']/internal-layout/@vertical) * 60" />
 				<xsl:text>)</xsl:text>
 			</xsl:attribute>
 
@@ -141,7 +141,7 @@
 					</xsl:choose>
 					<xsl:attribute name="stroke">black</xsl:attribute>
 					<xsl:attribute name='height'>
-						<xsl:value-of select="height * 60" />
+						<xsl:value-of select="internal-layout/@vertical * 60" />
 					</xsl:attribute>
 				</xsl:element>
 

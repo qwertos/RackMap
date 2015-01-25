@@ -123,10 +123,13 @@
 			<text x="0" y="15">
 				<xsl:value-of select="name" />
 			</text>
+			<text x="0" y="35">
+				<xsl:value-of select="location" />
+			</text>
 
-
+			<g transform="translate(100,0)">
 				<xsl:element name="rect">
-					<xsl:attribute name="x">100</xsl:attribute>
+					<xsl:attribute name="x">0</xsl:attribute>
 					<xsl:attribute name="y">0</xsl:attribute>
 					<xsl:attribute name="width">600</xsl:attribute>
 					<xsl:choose>
@@ -144,6 +147,9 @@
 						<xsl:value-of select="internal-layout/@vertical * 60" />
 					</xsl:attribute>
 				</xsl:element>
+
+
+			</g>
 
 		</xsl:element>	
 	</xsl:template>

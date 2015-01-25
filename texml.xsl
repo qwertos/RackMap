@@ -19,8 +19,7 @@
 			<cmd name="usepackage">
 				<parm>parskip</parm>
 			</cmd>
-			<cmd name="setlength">
-				<parm><ctrl ch="\"/>parindent</parm>
+			<cmd name="setlength\parindent">
 				<parm>0pt</parm>
 			</cmd>
 			<cmd name="newcommand\datacenter">

@@ -20,6 +20,11 @@
 			<cmd name="usepackage">
 				<parm>tikz</parm>
 			</cmd>
+			<!--
+			<cmd name="usepackage">
+				<parm>minipage</parm>
+			</cmd>
+			-->
 			<cmd name="usepackage">
 				<parm>parskip</parm>
 			</cmd>
@@ -75,21 +80,31 @@
 			<parm><xsl:value-of select="contact" /></parm>
 		</cmd>
 
-		<!--
 		<xsl:apply-templates select="rack" />
-		-->
 	</xsl:template>
 
 
 
 	<xsl:template match="rack">
+		<!--
 		<g transform="translate({ ( count(preceding-sibling::rack) * 250 ) + 50 },100)">
+		-->
+		<env name="minipage">
 			<cmd name="rack">
 				<parm><xsl:value-of select="name" /></parm>
 				<parm><xsl:value-of select="location" /></parm>
 				<parm><xsl:value-of select="owner" /></parm>
 				<parm><xsl:value-of select="contact" /></parm>
 			</cmd>	
+
+			<!--
+			<env name="tikzpicture">
+				<cmd name="draw">
+					<parm>(0,0)  (1,2);</parm>
+				</cmd>
+			</env>
+			-->
+		</env>
 			
 			<!--
 			<g transform="translate(10,100)">
@@ -136,8 +151,9 @@
 					<xsl:attribute name="stroke">black</xsl:attribute>
 				</xsl:element>
 			</g>
-		-->
 		</g>
+
+		-->
 
 	</xsl:template>
 

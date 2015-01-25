@@ -131,7 +131,7 @@
 				<xsl:element name="rect">
 					<xsl:attribute name="x">0</xsl:attribute>
 					<xsl:attribute name="y">0</xsl:attribute>
-					<xsl:attribute name="width">600</xsl:attribute>
+					<xsl:attribute name="width">1200</xsl:attribute>
 					<xsl:choose>
 						<xsl:when test="@fill">
 							<xsl:attribute name="fill">
@@ -148,10 +148,75 @@
 					</xsl:attribute>
 				</xsl:element>
 
+				
+				<xsl:call-template name='vert_bar'>
+					<xsl:with-param name="pCurrent" select="1" />
+					<xsl:with-param name="pStop" select="internal-layout/@horizontal" />
+				</xsl:call-template>
+
+				<xsl:call-template name='hori_bar'>
+					<xsl:with-param name="pCurrent" select="1" />
+					<xsl:with-param name="pStop" select="internal-layout/@vertical" />
+				</xsl:call-template>
+
+				<xsl:apply-templates select="slot"/>
 
 			</g>
 
 		</xsl:element>	
+	</xsl:template>
+
+
+	<xsl:template name="vert_bar">
+		<xsl:param name="pCurrent" />
+		<xsl:param name="pStop" />
+
+		<xsl:element name="line">
+			<xsl:attribute name="x1">
+				<xsl:value-of select="( 1200 div internal-layout/@horizontal ) * $pCurrent" />
+			</xsl:attribute>
+			<xsl:attribute name="y1">0</xsl:attribute>
+			<xsl:attribute name="x2">
+				<xsl:value-of select="( 1200 div internal-layout/@horizontal ) * $pCurrent" />
+			</xsl:attribute>
+			<xsl:attribute name="y2">
+				<xsl:value-of select="internal-layout/@vertical * 60" />
+			</xsl:attribute>
+			<xsl:attribute name="stroke">black</xsl:attribute>
+		</xsl:element>
+
+		<xsl:if test="$pCurrent &lt; $pStop">
+			<xsl:call-template name="vert_bar">
+				<xsl:with-param name="pCurrent" select="$pCurrent + 1" />
+				<xsl:with-param name="pStop" select="$pStop"/>
+			</xsl:call-template>
+		</xsl:if>
+	</xsl:template>
+
+	<xsl:template name="hori_bar">
+		<xsl:param name="pCurrent" />
+		<xsl:param name="pStop" />
+
+		<xsl:element name="line">
+			<xsl:attribute name="y1">
+				<xsl:value-of select="60 * $pCurrent" />
+			</xsl:attribute>
+			<xsl:attribute name="x1">0</xsl:attribute>
+			<xsl:attribute name="y2">
+				<xsl:value-of select="60 * $pCurrent" />
+			</xsl:attribute>
+			<xsl:attribute name="x2">
+				1200
+			</xsl:attribute>
+			<xsl:attribute name="stroke">black</xsl:attribute>
+		</xsl:element>
+
+		<xsl:if test="$pCurrent &lt; $pStop">
+			<xsl:call-template name="hori_bar">
+				<xsl:with-param name="pCurrent" select="$pCurrent + 1" />
+				<xsl:with-param name="pStop" select="$pStop"/>
+			</xsl:call-template>
+		</xsl:if>
 	</xsl:template>
 
 </xsl:stylesheet>

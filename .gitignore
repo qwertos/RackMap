@@ -1,3 +1,10 @@
 rackinfo.xml
 out.svg
 *.swp
+out.svg
+out.tex
+out.texml
+out.pdf
+out.aux
+out.log
+

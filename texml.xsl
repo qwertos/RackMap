@@ -20,7 +20,7 @@
 				<parm>parskip</parm>
 			</cmd>
 			<cmd name="setlength">
-				<parm>\parindent</parm>
+				<parm><ctrl ch="\"/>parindent</parm>
 				<parm>0pt</parm>
 			</cmd>
 			<cmd name="newcommand\datacenter">

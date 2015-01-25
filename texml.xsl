@@ -16,6 +16,13 @@
 			<cmd name="usepackage">
 				<parm>tikz</parm>
 			</cmd>
+			<cmd name="usepackage">
+				<parm>parskip</parm>
+			</cmd>
+			<cmd name="setlength">
+				<parm>\parindent</parm>
+				<parm>0pt</parm>
+			</cmd>
 			<cmd name="newcommand\datacenter">
 				<opt>4</opt>
 				<parm>

@@ -1,6 +1,6 @@
 
 
-all: out.svg
+all: out.svg patch.svg
 
 out.svg: layout.xsl rackinfo.xml
 	xsltproc layout.xsl rackinfo.xml > out.svg

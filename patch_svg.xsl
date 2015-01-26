@@ -125,6 +125,7 @@
 				<xsl:value-of select="name" />
 			</text>
 			<text x="0" y="35">
+				<xsl:text>Location:</xsl:text>
 				<xsl:value-of select="location" />
 			</text>
 

@@ -8,7 +8,7 @@
 	<xsl:output method="xml" indent="yes" />
 
 	<xsl:variable name="scale" select="/datacenter/@scale" />
-	<xsl:variable name="patchFullWidth" select="1200" />
+	<xsl:variable name="patchFullWidth" select="1500" />
 
 	<xsl:template match="/">
 		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">

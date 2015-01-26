@@ -9,6 +9,7 @@
 
 	<xsl:variable name="scale" select="/datacenter/@scale" />
 	<xsl:variable name="patchFullWidth" select="1500" />
+	<xsl:variable name="slotHeight" select="60" />
 
 	<xsl:template match="/">
 		<xsl:element name="svg">
@@ -20,7 +21,7 @@
 						100 + (
 							count(/datacenter/rack) * 100
 						) + (
-							sum(/datacenter/rack/item[@type='patch']/internal-layout/@vertical) * 60
+							sum(/datacenter/rack/item[@type='patch']/internal-layout/@vertical) * $slotHeight
 						) + 1
 					)"/>
 			</xsl:attribute>
@@ -83,7 +84,7 @@
 	-->
 
 	<xsl:template match="rack">
-		<xsl:variable name="ytrans" select="( sum(preceding-sibling::rack/item[@type='patch']/internal-layout/@vertical) * 60 ) + ( count(preceding-sibling::rack) * 100 ) + 100" />
+		<xsl:variable name="ytrans" select="( sum(preceding-sibling::rack/item[@type='patch']/internal-layout/@vertical) * $slotHeight ) + ( count(preceding-sibling::rack) * 100 ) + 100" />
 		
 		<g transform="translate(50, { $ytrans })">
 			<text x="20" y="20" fill="black">
@@ -111,7 +112,7 @@
 		<xsl:element name="g">
 			<xsl:attribute name="transform">
 				<xsl:text>translate(0,</xsl:text>
-				<xsl:value-of select="sum(preceding-sibling::item[@type='patch']/internal-layout/@vertical) * 60" />
+				<xsl:value-of select="sum(preceding-sibling::item[@type='patch']/internal-layout/@vertical) * $slotHeight" />
 				<xsl:text>)</xsl:text>
 			</xsl:attribute>
 
@@ -165,7 +166,7 @@
 					</xsl:choose>
 					<xsl:attribute name="stroke">black</xsl:attribute>
 					<xsl:attribute name='height'>
-						<xsl:value-of select="internal-layout/@vertical * 60" />
+						<xsl:value-of select="internal-layout/@vertical * $slotHeight" />
 					</xsl:attribute>
 				</xsl:element>
 
@@ -201,7 +202,7 @@
 				<xsl:value-of select="( $patchFullWidth div internal-layout/@horizontal ) * $pCurrent" />
 			</xsl:attribute>
 			<xsl:attribute name="y2">
-				<xsl:value-of select="internal-layout/@vertical * 60" />
+				<xsl:value-of select="internal-layout/@vertical * $slotHeight" />
 			</xsl:attribute>
 			<xsl:attribute name="stroke">black</xsl:attribute>
 		</xsl:element>
@@ -220,11 +221,11 @@
 
 		<xsl:element name="line">
 			<xsl:attribute name="y1">
-				<xsl:value-of select="60 * $pCurrent" />
+				<xsl:value-of select="$slotHeight * $pCurrent" />
 			</xsl:attribute>
 			<xsl:attribute name="x1">0</xsl:attribute>
 			<xsl:attribute name="y2">
-				<xsl:value-of select="60 * $pCurrent" />
+				<xsl:value-of select="$slotHeight * $pCurrent" />
 			</xsl:attribute>
 			<xsl:attribute name="x2">
 				<xsl:value-of select="$patchFullWidth" />
@@ -251,14 +252,16 @@
 				<xsl:text>translate(</xsl:text>
 				<xsl:value-of select="$sxpos * $swidth"/>
 				<xsl:text>,</xsl:text>
-				<xsl:value-of select="$sypos * 60"/>
+				<xsl:value-of select="$sypos * $slotHeight"/>
 				<xsl:text>)</xsl:text>
 			</xsl:attribute>
 
 			<xsl:element name="rect">
 				<xsl:attribute name="x">0</xsl:attribute>
 				<xsl:attribute name="y">0</xsl:attribute>
-				<xsl:attribute name="height">60</xsl:attribute>
+				<xsl:attribute name="height">
+					<xsl:value-of select="$slotHeight" />
+				</xsl:attribute>
 				<xsl:attribute name="width">
 					<xsl:value-of select="$swidth" />
 				</xsl:attribute>

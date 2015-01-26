@@ -11,9 +11,22 @@
 	<xsl:variable name="patchFullWidth" select="1500" />
 
 	<xsl:template match="/">
-		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+		<xsl:element name="svg">
+			<!--
+			<xsl:attribute name="xmlns">http://www.w3.org/2000/svg</xsl:attribute>-->
+			<xsl:attribute name="version">1.1</xsl:attribute>
+			<xsl:attribute name="height">
+				<xsl:value-of select="(
+						100 + (
+							count(/datacenter/rack) * 100
+						) + (
+							sum(/datacenter/rack/item[@type='patch']/internal-layout/@vertical) * 60
+						) + 1
+					)"/>
+			</xsl:attribute>
+
 			<xsl:apply-templates select="datacenter" />
-		</svg>
+		</xsl:element>
 	</xsl:template>
 
 

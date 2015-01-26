@@ -171,7 +171,7 @@
 				<xsl:when	test="../order = 'descend'">
 					<xsl:attribute name="transform">
 						<xsl:text>translate(0,</xsl:text>
-						<xsl:value-of select="$scale * (../height - location)" />
+						<xsl:value-of select="$scale * (../height - location - height + 1)" />
 						<xsl:text>)</xsl:text>
 					</xsl:attribute>
 				</xsl:when>

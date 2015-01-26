@@ -25,6 +25,10 @@
 					)"/>
 			</xsl:attribute>
 
+			<xsl:attribute name="width">
+				<xsl:value-of select="( 50 + 50 + 100 + $patchFullWidth + 1 )"/>
+			</xsl:attribute>
+
 			<xsl:apply-templates select="datacenter" />
 		</xsl:element>
 	</xsl:template>

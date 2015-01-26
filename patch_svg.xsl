@@ -85,7 +85,6 @@
 	
 			<g transform="translate(50, 100)">
 				<xsl:apply-templates select="item[@type='patch']" />
-				<rect x='0' y='0' width='10' height='10' fill='black' />
 			</g>
 		</g>
 	</xsl:template>
@@ -99,7 +98,7 @@
 				<xsl:text>)</xsl:text>
 			</xsl:attribute>
 
-
+			<!--
 			<xsl:element name="rect">
 				<xsl:attribute name="x">0</xsl:attribute>
 				<xsl:attribute name="y">0</xsl:attribute>
@@ -119,6 +118,7 @@
 					<xsl:value-of select="60" />
 				</xsl:attribute>
 			</xsl:element>
+			-->
 
 			<!-- Patch label-->
 			<text x="0" y="15">
@@ -142,7 +142,7 @@
 							</xsl:attribute>
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:attribute name="fill">pink</xsl:attribute>
+							<xsl:attribute name="fill">lightgray</xsl:attribute>
 						</xsl:otherwise>
 					</xsl:choose>
 					<xsl:attribute name="stroke">black</xsl:attribute>

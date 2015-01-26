@@ -10,11 +10,36 @@
 	<xsl:variable name="scale" select="/datacenter/@scale" />
 
 	<xsl:template match="/">
-		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+		<xsl:element name="svg">
+			<xsl:variable name="maxHeight">
+				<xsl:call-template name="maximum">
+					<xsl:with-param name="pSeq" select="/datacenter/rack/height" />
+				</xsl:call-template>
+			</xsl:variable>
+			<xsl:attribute name="version">1.1</xsl:attribute>
+			<xsl:attribute name="height">
+				<xsl:value-of select="100 + 100 + ( $maxHeight * $scale ) + 1"/>
+			</xsl:attribute>
+			<xsl:attribute name="width">
+				<xsl:value-of select=" ( count(/datacenter/rack) * 250 ) + 50" />
+			</xsl:attribute>
+
+
 			<xsl:apply-templates select="datacenter" />
-		</svg>
+		</xsl:element>
 	</xsl:template>
 
+
+	<xsl:template name="maximum">
+		<xsl:param name="pSeq" />
+
+		<xsl:for-each select="$pSeq">
+			<xsl:sort select="." data-type="number" order="descending" />
+			<xsl:if test="position() = 1">
+				<xsl:value-of select="." />
+			</xsl:if>
+		</xsl:for-each>
+	</xsl:template>
 
 
 	<xsl:template match="datacenter">

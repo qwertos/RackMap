@@ -8,6 +8,7 @@
 	<xsl:output method="xml" indent="yes" />
 
 	<xsl:variable name="scale" select="/datacenter/@scale" />
+	<xsl:variable name="patchFullWidth" select="1200" />
 
 	<xsl:template match="/">
 		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -131,7 +132,9 @@
 				<xsl:element name="rect">
 					<xsl:attribute name="x">0</xsl:attribute>
 					<xsl:attribute name="y">0</xsl:attribute>
-					<xsl:attribute name="width">1200</xsl:attribute>
+					<xsl:attribute name="width">
+						<xsl:value-of select="$patchFullWidth" />
+					</xsl:attribute>
 					<xsl:choose>
 						<xsl:when test="@fill">
 							<xsl:attribute name="fill">
@@ -159,7 +162,7 @@
 					<xsl:with-param name="pStop" select="internal-layout/@vertical" />
 				</xsl:call-template>
 
-				<xsl:apply-templates select="slot"/>
+				<xsl:apply-templates select="internal-layout/slot"/>
 
 			</g>
 
@@ -173,11 +176,11 @@
 
 		<xsl:element name="line">
 			<xsl:attribute name="x1">
-				<xsl:value-of select="( 1200 div internal-layout/@horizontal ) * $pCurrent" />
+				<xsl:value-of select="( $patchFullWidth div internal-layout/@horizontal ) * $pCurrent" />
 			</xsl:attribute>
 			<xsl:attribute name="y1">0</xsl:attribute>
 			<xsl:attribute name="x2">
-				<xsl:value-of select="( 1200 div internal-layout/@horizontal ) * $pCurrent" />
+				<xsl:value-of select="( $patchFullWidth div internal-layout/@horizontal ) * $pCurrent" />
 			</xsl:attribute>
 			<xsl:attribute name="y2">
 				<xsl:value-of select="internal-layout/@vertical * 60" />
@@ -206,7 +209,7 @@
 				<xsl:value-of select="60 * $pCurrent" />
 			</xsl:attribute>
 			<xsl:attribute name="x2">
-				1200
+				<xsl:value-of select="$patchFullWidth" />
 			</xsl:attribute>
 			<xsl:attribute name="stroke">black</xsl:attribute>
 		</xsl:element>
@@ -221,6 +224,41 @@
 
 
 	<xsl:template match="slot">
+		<xsl:variable name="sxpos" select="( @id - 1 ) mod ../@horizontal" />
+		<xsl:variable name="sypos" select="floor( ( @id - 1 ) div ../@horizontal)" />
+		<xsl:variable name="swidth" select="( $patchFullWidth div ../@horizontal )" />
+
+		<xsl:element name="g">
+			<xsl:attribute name="transform">
+				<xsl:text>translate(</xsl:text>
+				<xsl:value-of select="$sxpos * $swidth"/>
+				<xsl:text>,</xsl:text>
+				<xsl:value-of select="$sypos * 60"/>
+				<xsl:text>)</xsl:text>
+			</xsl:attribute>
+
+			<xsl:element name="rect">
+				<xsl:attribute name="x">0</xsl:attribute>
+				<xsl:attribute name="y">0</xsl:attribute>
+				<xsl:attribute name="height">60</xsl:attribute>
+				<xsl:attribute name="width">
+					<xsl:value-of select="$swidth" />
+				</xsl:attribute>
+				<xsl:attribute name="fill">
+					<xsl:value-of select="@color" />
+				</xsl:attribute>
+				<xsl:attribute name="stroke">black</xsl:attribute>
+			</xsl:element>
+
+			<text x="0" y="15">
+				<xsl:value-of select="@id" />
+			</text>
+			<text x="0" y="35">
+				<xsl:value-of select="@name" />
+			</text>
+
+
+		</xsl:element>
 		
 	</xsl:template>
 

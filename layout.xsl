@@ -192,13 +192,16 @@
 
 	<xsl:template match="item">
 		<xsl:element name="g">
+			<!--
 			<xsl:choose>
 				<xsl:when	test="../order = 'descend'">
+					-->
 					<xsl:attribute name="transform">
 						<xsl:text>translate(0,</xsl:text>
 						<xsl:value-of select="$scale * (../height - location - height + 1)" />
 						<xsl:text>)</xsl:text>
 					</xsl:attribute>
+				<!--
 				</xsl:when>
 
 				<xsl:otherwise>
@@ -209,6 +212,7 @@
 					</xsl:attribute>
 				</xsl:otherwise>
 			</xsl:choose>
+			-->			
 
 			<xsl:element name="rect">
 				<xsl:attribute name="x">0</xsl:attribute>

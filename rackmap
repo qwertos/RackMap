@@ -1,0 +1,49 @@
+#!/bin/bash
+
+#LIB_DIR='/usr/local/lib/rackmap'
+LIB_DIR='.'
+
+
+usage() {
+	cat <<EOM
+Usage:
+$0 <--patch|--rack> <rack info xml>
+EOM
+}
+
+
+out_patch() {
+	xsltproc "${LIB_DIR}/patch_svg.xsl" "$1"
+	exit 0
+}
+
+
+out_rack() {
+	xsltproc "${LIB_DIR}/rack_svg.xsl" "$1"
+	exit 0
+}
+
+
+confirm_file() {
+	if [[ ! -e "$1" ]] ; then
+		echo "IN FILE NOT FOUND"
+		exit 1
+	fi
+}
+
+
+if [[ "$1" == '--patch' ]] ; then
+	confirm_file "$2"
+	out_patch "$2"
+fi
+
+
+if [[ "$1" == '--rack' ]] ; then
+	confirm_file "$2"
+	out_rack "$2"
+fi
+
+
+usage
+
+

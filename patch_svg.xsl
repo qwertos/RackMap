@@ -180,7 +180,7 @@
 					<xsl:with-param name="pCurrent" select="1" />
 					<xsl:with-param name="pStop" select="internal-layout/@vertical" />
 				</xsl:call-template>
-
+			
 				<xsl:apply-templates select="internal-layout/slot"/>
 
 			</g>
@@ -243,8 +243,33 @@
 
 
 	<xsl:template match="slot">
-		<xsl:variable name="sxpos" select="( @id - 1 ) mod ../@horizontal" />
-		<xsl:variable name="sypos" select="floor( ( @id - 1 ) div ../@horizontal)" />
+		<xsl:choose>
+			<xsl:when test="../@direction-priority = 'ud'">
+                                <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+                                <!-- <xsl:variable name="sypos" select="( @id - 1 ) mod ../@vertical" />         -->
+                                <!-- <xsl:variable name="sxpos" select="floor( ( @id - 1 ) div ../@vertical)" /> -->
+                                <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+				<xsl:call-template name="slot_with_params">
+					<xsl:with-param name="sypos" select="( @id - 1 ) mod ../@vertical" />
+					<xsl:with-param name="sxpos" select="floor( ( @id - 1 ) div ../@vertical)" />
+				</xsl:call-template>
+			</xsl:when>
+
+			<xsl:otherwise>
+				<xsl:call-template name="slot_with_params">
+					<xsl:with-param name="sxpos" select="( @id - 1 ) mod ../@horizontal" />
+					<xsl:with-param name="sypos" select="floor( ( @id - 1 ) div ../@horizontal)" />
+				</xsl:call-template>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+
+	<xsl:template name="slot_with_params">
+		<xsl:param name="sxpos" />
+		<xsl:param name="sypos" />
+
 		<xsl:variable name="swidth" select="( $patchFullWidth div ../@horizontal )" />
 
 		<xsl:element name="g">
@@ -277,10 +302,7 @@
 			<text x="0" y="35">
 				<xsl:value-of select="@name" />
 			</text>
-
-
 		</xsl:element>
-		
 	</xsl:template>
 
 </xsl:stylesheet>

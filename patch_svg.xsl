@@ -10,6 +10,7 @@
 	<xsl:variable name="scale" select="/datacenter/@scale" />
 	<xsl:variable name="patchFullWidth" select="1500" />
 	<xsl:variable name="slotHeight" select="60" />
+	<xsl:variable name="patchBuffer" select="10" />
 
 	<xsl:template match="/">
 		<xsl:element name="svg">
@@ -22,7 +23,9 @@
 							count(/datacenter/rack) * 100
 						) + (
 							sum(/datacenter/rack/item[@type='patch']/internal-layout/@vertical) * $slotHeight
-						) + 1
+						) + (
+							( count(/datacenter/rack/item[@type='patch']) - 1 ) * $patchBuffer
+						)	+ 1
 					)"/>
 			</xsl:attribute>
 
@@ -84,7 +87,11 @@
 	-->
 
 	<xsl:template match="rack">
-		<xsl:variable name="ytrans" select="( sum(preceding-sibling::rack/item[@type='patch']/internal-layout/@vertical) * $slotHeight ) + ( count(preceding-sibling::rack) * 100 ) + 100" />
+		<xsl:variable name="ytrans_prev_slot_height_sum" select="sum(preceding-sibling::rack/item[@type='patch']/internal-layout/@vertical) * $slotHeight" />
+		<xsl:variable name="ytrans_prev_rack_head" select="count(preceding-sibling::rack) * 100" />
+		<xsl:variable name="ytrans_dc_head" select="100" />
+		<xsl:variable name="ytrans_prev_patch_buf" select="count(preceding-sibling::rack/item[@type='patch']) * $patchBuffer" />
+		<xsl:variable name="ytrans" select="$ytrans_prev_slot_height_sum + $ytrans_prev_rack_head + $ytrans_dc_head + $ytrans_prev_patch_buf" />
 		
 		<g transform="translate(50, { $ytrans })">
 			<text x="20" y="20" fill="black">
@@ -112,7 +119,9 @@
 		<xsl:element name="g">
 			<xsl:attribute name="transform">
 				<xsl:text>translate(0,</xsl:text>
-				<xsl:value-of select="sum(preceding-sibling::item[@type='patch']/internal-layout/@vertical) * $slotHeight" />
+				<xsl:variable name="prev_slot_height_sum" select="sum(preceding-sibling::item[@type='patch']/internal-layout/@vertical) * $slotHeight" />
+				<xsl:variable name="total_patch_buffer" select="count(preceding-sibling::item[@type='patch']) * $patchBuffer" />
+				<xsl:value-of select="$prev_slot_height_sum + $total_patch_buffer" />
 				<xsl:text>)</xsl:text>
 			</xsl:attribute>
 

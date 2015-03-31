@@ -35,7 +35,11 @@
 	</xs:element>
 
 
-	<xs:element name="item" type="baseItem" />
+	<xs:element name="item">
+		<xs:alternative test="@type='patch'" type="patchItem" />
+		<xs:alternative type="baseItem" />
+	</xs:element>
+
 	<xs:element name="patch" type="patchItem" />
 
 

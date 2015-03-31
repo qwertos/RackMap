@@ -36,6 +36,7 @@
 
 
 	<xs:element name="item" type="baseItem" />
+	<xs:element name="patch" type="patchItem" />
 
 
 	<xs:complexType name="baseItem">
@@ -45,6 +46,37 @@
 			<xs:element name="location" type="xs:integer" />
 		</xs:sequence>
 	</xs:complexType>
+
+
+	<xs:complexType name="patchItem">
+		<xs:complexContent>
+			<xs:extension base="baseItem">
+				<xs:sequence>
+					<xs:element ref="internal-layout" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:element name="internal-layout">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="slot" minOccurs='0' maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="count" type="xs:integer" />
+			<xs:attribute name="vertical" type="xs:integer" />
+			<xs:attribute name="horizontal" type="xs:integer" />
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:element name="slot">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:integer" />
+			<xs:attribute name="color" type="xs:string" />
+			<xs:attribute name="name" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
 
 
 </xs:schema>

@@ -10,27 +10,28 @@
 	<!-- COMPLEX ELEMENTS -->
 	<xs:element name="datacenter">
 		<xs:complexType>
-			<xs:sequence>
+			<xs:all>
 				<xs:element ref="name" />
+				<xs:element name="location" type="xs:string" />
 				<xs:element ref="owner" />
 				<xs:element ref="contact" />
-				<xs:element name="location" type="xs:string" />
 				<xs:element ref="rack" maxOccurs="unbounded" />
-			</xs:sequence>
+			</xs:all>
+			<xs:attribute name="scale" type="xs:integer" />
 		</xs:complexType>
 	</xs:element>
 
 
 	<xs:element name="rack">
 		<xs:complexType>
-			<xs:sequence>
+			<xs:all>
 				<xs:element ref="name"/>
+				<xs:element name="location" type="xs:string" />
 				<xs:element ref="owner" />
 				<xs:element ref="contact" />
-				<xs:element name="location" type="xs:string" />
 				<xs:element ref="height" />
 				<xs:element ref="item" minOccurs="0" maxOccurs="unbounded" />
-			</xs:sequence>
+			</xs:all>
 		</xs:complexType>
 	</xs:element>
 
@@ -40,24 +41,24 @@
 		<xs:alternative type="baseItem" />
 	</xs:element>
 
-	<xs:element name="patch" type="patchItem" />
 
 
 	<xs:complexType name="baseItem">
-		<xs:sequence>
+		<xs:all>
 			<xs:element ref="name"/>
 			<xs:element ref="height" />
 			<xs:element name="location" type="xs:integer" />
-		</xs:sequence>
+		</xs:all>
+		<xs:attribute name="type" type="xs:string" />
 	</xs:complexType>
 
 
 	<xs:complexType name="patchItem">
 		<xs:complexContent>
 			<xs:extension base="baseItem">
-				<xs:sequence>
+				<xs:all>
 					<xs:element ref="internal-layout" />
-				</xs:sequence>
+				</xs:all>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -70,6 +71,7 @@
 			<xs:attribute name="count" type="xs:integer" />
 			<xs:attribute name="vertical" type="xs:integer" />
 			<xs:attribute name="horizontal" type="xs:integer" />
+			<xs:attribute name="direction-priority" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
 

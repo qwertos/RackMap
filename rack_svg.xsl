@@ -9,6 +9,9 @@
 
 	<xsl:variable name="scale" select="/datacenter/@scale" />
 
+		<xsl:variable name="colormap" select="document(/datacenter/@colorize-server)" />
+
+
 	<xsl:template match="/">
 		<xsl:element name="svg">
 			<xsl:variable name="maxHeight">
@@ -218,11 +221,24 @@
 				<xsl:attribute name="x">0</xsl:attribute>
 				<xsl:attribute name="y">0</xsl:attribute>
 				<xsl:attribute name="width">200</xsl:attribute>
+				<xsl:variable name="itemname" select="name" />
 				<xsl:choose>
 					<xsl:when test="@fill">
 						<xsl:attribute name="fill">
 							<xsl:value-of select="@fill" />
 						</xsl:attribute>
+					</xsl:when>
+					<xsl:when test="/datacenter/@colorize-server">
+						<xsl:choose>
+							<xsl:when test="$colormap/hosts/host[name=$itemname]">
+								<xsl:attribute name="fill">
+									<xsl:value-of select="$colormap/hosts/host[name=$itemname]/color" />
+								</xsl:attribute>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:attribute name="fill">lightgray</xsl:attribute>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:attribute name="fill">lightgray</xsl:attribute>

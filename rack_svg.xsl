@@ -9,7 +9,7 @@
 
 	<xsl:variable name="scale" select="/datacenter/@scale" />
 
-		<xsl:variable name="colormap" select="document(/datacenter/@colorize-server)" />
+		<xsl:variable name="colormap" select="document(/datacenter/@colormap)" />
 
 
 	<xsl:template match="/">

@@ -228,7 +228,7 @@
 							<xsl:value-of select="@fill" />
 						</xsl:attribute>
 					</xsl:when>
-					<xsl:when test="/datacenter/@colorize-server">
+					<xsl:when test="/datacenter/@colormap">
 						<xsl:choose>
 							<xsl:when test="$colormap/colormap/item[name=$itemname]">
 								<xsl:attribute name="fill">

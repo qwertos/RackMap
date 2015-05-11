@@ -230,9 +230,9 @@
 					</xsl:when>
 					<xsl:when test="/datacenter/@colorize-server">
 						<xsl:choose>
-							<xsl:when test="$colormap/hosts/host[name=$itemname]">
+							<xsl:when test="$colormap/colormap/item[name=$itemname]">
 								<xsl:attribute name="fill">
-									<xsl:value-of select="$colormap/hosts/host[name=$itemname]/color" />
+									<xsl:value-of select="$colormap/colormap/item[name=$itemname]/color" />
 								</xsl:attribute>
 							</xsl:when>
 							<xsl:otherwise>

@@ -26,6 +26,9 @@
 			<xsl:attribute name="width">
 				<xsl:value-of select=" ( count(/datacenter/rack) * 250 ) + 50" />
 			</xsl:attribute>
+			<xsl:attribute name="style">
+				<xsl:text>background-color: white</xsl:text>
+			</xsl:attribute>
 
 
 			<xsl:apply-templates select="datacenter" />

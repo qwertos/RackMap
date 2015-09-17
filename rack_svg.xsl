@@ -223,7 +223,7 @@
 			<xsl:if test="trigger">
 				<xsl:element name="title">
 					<xsl:for-each select="trigger">
-						<xsl:value-of select="trigger" />
+						<xsl:value-of select="." />
 						<xsl:text>
 						</xsl:text>
 					</xsl:for-each>

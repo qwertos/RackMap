@@ -229,6 +229,7 @@
 							<xsl:text>
 							</xsl:text>
 						</xsl:for-each>
+					</xsl:element>
 				</xsl:if>
 			</xsl:if>
 

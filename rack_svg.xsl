@@ -219,6 +219,18 @@
 				</xsl:otherwise>
 			</xsl:choose>
 			-->			
+			<xsl:variable name="itemname" select="name" />
+
+			<xsl:if test="/datacenter/@colormap">
+				<xsl:if test="$colormap/colormap/item[name=$itemname]/trigger">
+					<xsl:element name="title">
+						<xsl:for-each select="$colormap/colormap/item[name=$itemname]/trigger" >
+							<xsl:value-of select="." />
+							<xsl:text>
+							</xsl:text>
+						</xsl:for-each>
+				</xsl:if>
+			</xsl:if>
 
 			<xsl:if test="trigger">
 				<xsl:element name="title">
@@ -233,7 +245,6 @@
 				<xsl:attribute name="x">0</xsl:attribute>
 				<xsl:attribute name="y">0</xsl:attribute>
 				<xsl:attribute name="width">200</xsl:attribute>
-				<xsl:variable name="itemname" select="name" />
 				<xsl:choose>
 					<xsl:when test="@fill">
 						<xsl:attribute name="fill">

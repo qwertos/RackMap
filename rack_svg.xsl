@@ -225,9 +225,9 @@
 				<xsl:if test="$colormap/colormap/item[name=$itemname]/trigger">
 					<xsl:element name="title">
 						<xsl:for-each select="$colormap/colormap/item[name=$itemname]/trigger" >
-							<xsl:value-of select="." />
 							<xsl:text>
-							</xsl:text>
+- </xsl:text>
+							<xsl:value-of select="." />
 						</xsl:for-each>
 					</xsl:element>
 				</xsl:if>

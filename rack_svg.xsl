@@ -220,6 +220,15 @@
 			</xsl:choose>
 			-->			
 
+			<xsl:if test="trigger">
+				<xsl:element name="title">
+					<xsl:for-each select="trigger">
+						<xsl:value-of select="trigger" />
+						<xsl:text>
+						</xsl:text>
+					</xsl:for-each>
+				</xsl:element>
+			</xsl:if>
 			<xsl:element name="rect">
 				<xsl:attribute name="x">0</xsl:attribute>
 				<xsl:attribute name="y">0</xsl:attribute>

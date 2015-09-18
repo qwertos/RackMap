@@ -96,7 +96,7 @@
 
 			<xsl:choose>
 				<xsl:when test="/datacenter/@colormap and $colormap/colormap/limit">
-					<xsl:apply-templates select="rack[group = $colormap/colormap/limit"/>
+					<xsl:apply-templates select="rack[group = $colormap/colormap/limit]"/>
 				</xsl:when>
 
 				<xsl:otherwise>

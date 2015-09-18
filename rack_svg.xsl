@@ -49,23 +49,36 @@
 
 
 	<xsl:template match="datacenter">
-		<text x="20" y="20" fill="black">
-			<xsl:value-of select="name" />
-		</text>
-		<text x="20" y="40" fill="black">
-			<xsl:value-of select="location" />
-		</text>
-		<text x="20" y="60" fill="black">
-			<xsl:value-of select="owner" />
-		</text>
-		<text x="20" y="80" fill="black">
-			<xsl:value-of select="contact" />
-		</text>
+		<xsl:if test="name">
+			<text x="20" y="20" fill="black">
+				<xsl:value-of select="name" />
+			</text>
+		</xsl:if>
+		
+		<xsl:if test="location">
+			<text x="20" y="40" fill="black">
+				<xsl:value-of select="location" />
+			</text>
+		</xsl:if>
+		
+		<xsl:if test="owner">
+			<text x="20" y="60" fill="black">
+				<xsl:value-of select="owner" />
+			</text>
+		</xsl:if>
+
+		<xsl:if test="contact">
+			<text x="20" y="80" fill="black">
+				<xsl:value-of select="contact" />
+			</text>
+		</xsl:if>
 		
 		<xsl:element name="g">
-			<xsl:attribute name="transform">
-				<xsl:text>translate( 0, 100 )</xsl:text>
-			</xsl:attribute>
+			<xsl:if test="name or location or owner or contact">
+				<xsl:attribute name="transform">
+					<xsl:text>translate( 0, 100 )</xsl:text>
+				</xsl:attribute>
+			</xsl:if>
 			<xsl:apply-templates select="rack" />
 		</xsl:element>
 	</xsl:template>

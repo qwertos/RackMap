@@ -109,7 +109,19 @@
 
 
 	<xsl:template match="rack">
-		<g transform="translate({ ( count(preceding-sibling::rack) * 250 ) + 50 },0)">
+		<xsl:element name="g">
+			<xsl:attribute name="transform">
+				<xsl:choose>
+					<xsl:when test="/datacenter/@colormap and $colormap/colormap/limit">
+						<xsl:value-of select="translate({ ( count(preceding-sibling::rack[group = $colormap/colormap/limit]) * 250 ) + 50 },0)"/>
+					</xsl:when>
+
+					<xsl:otherwise>
+						<xsl:value-of select="translate({ ( count(preceding-sibling::rack) * 250 ) + 50 },0)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
+
 			<text x="20" y="20" fill="black">
 				<xsl:value-of select="name" />
 			</text>
@@ -168,8 +180,7 @@
 					<xsl:attribute name="stroke">black</xsl:attribute>
 				</xsl:element>
 			</g>
-		</g>
-
+		</xsl:element>
 	</xsl:template>
 
 

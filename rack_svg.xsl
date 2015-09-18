@@ -61,14 +61,19 @@
 		<text x="20" y="80" fill="black">
 			<xsl:value-of select="contact" />
 		</text>
-
-		<xsl:apply-templates select="rack" />
+		
+		<xsl:element name="g">
+			<xsl:attribute name="transform">
+				<xsl:text>translate( 0, 100 )</xsl:text>
+			</xsl:attribute>
+			<xsl:apply-templates select="rack" />
+		</xsl:element>
 	</xsl:template>
 
 
 
 	<xsl:template match="rack">
-		<g transform="translate({ ( count(preceding-sibling::rack) * 250 ) + 50 },100)">
+		<g transform="translate({ ( count(preceding-sibling::rack) * 250 ) + 50 },0)">
 			<text x="20" y="20" fill="black">
 				<xsl:value-of select="name" />
 			</text>

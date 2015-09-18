@@ -113,11 +113,15 @@
 			<xsl:attribute name="transform">
 				<xsl:choose>
 					<xsl:when test="/datacenter/@colormap and $colormap/colormap/limit">
-						<xsl:value-of select="translate({ ( count(preceding-sibling::rack[group = $colormap/colormap/limit]) * 250 ) + 50 },0)"/>
+						<xsl:text>translate(</xsl:text>
+						<xsl:value-of select="( count(preceding-sibling::rack[group = $colormap/colormap/limit]) * 250 ) + 50"/>
+						<xsl:text>, 0)</xsl:text>
 					</xsl:when>
 
 					<xsl:otherwise>
-						<xsl:value-of select="translate({ ( count(preceding-sibling::rack) * 250 ) + 50 },0)"/>
+						<xsl:text>translate(</xsl:text>
+						<xsl:value-of select="( count(preceding-sibling::rack) * 250 ) + 50"/>
+						<xsl:text>, 0)</xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>

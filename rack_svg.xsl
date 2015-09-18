@@ -23,15 +23,11 @@
 			<xsl:attribute name="height">
 				<xsl:choose>
 					<xsl:when test="datacenter/name or datacenter/location or datacenter/owner or datacenter/contact">
-						<xsl:attribute name="transform">
-							<xsl:value-of select="100 + 100 + ( $maxHeight * $scale ) + 1"/>
-						</xsl:attribute>
+						<xsl:value-of select="100 + 100 + ( $maxHeight * $scale ) + 1"/>
 					</xsl:when>
 
 					<xsl:otherwise>
-						<xsl:attribute name="transform">
-							<xsl:value-of select="100 + ( $maxHeight * $scale ) + 1"/>
-						</xsl:attribute>
+						<xsl:value-of select="100 + ( $maxHeight * $scale ) + 1"/>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>

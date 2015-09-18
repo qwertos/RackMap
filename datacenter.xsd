@@ -11,10 +11,10 @@
 	<xs:element name="datacenter">
 		<xs:complexType>
 			<xs:all>
-				<xs:element ref="name" />
-				<xs:element name="location" type="xs:string" />
-				<xs:element ref="owner" />
-				<xs:element ref="contact" />
+				<xs:element ref="name" minOccurs="0" />
+				<xs:element name="location" type="xs:string" minOccurs="0" />
+				<xs:element ref="owner" minOccurs="0" />
+				<xs:element ref="contact" minOccurs="0" />
 				<xs:element ref="rack" maxOccurs="unbounded" />
 			</xs:all>
 			<xs:attribute name="scale" type="xs:integer" />

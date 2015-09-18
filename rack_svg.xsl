@@ -6,10 +6,8 @@
 	xmlns="http://www.w3.org/2000/svg">
 
 	<xsl:output method="xml" indent="yes" />
-
 	<xsl:variable name="scale" select="/datacenter/@scale" />
-
-		<xsl:variable name="colormap" select="document(/datacenter/@colormap)" />
+	<xsl:variable name="colormap" select="document(/datacenter/@colormap)" />
 
 
 	<xsl:template match="/">
@@ -32,7 +30,15 @@
 				</xsl:choose>
 			</xsl:attribute>
 			<xsl:attribute name="width">
-				<xsl:value-of select=" ( count(/datacenter/rack) * 250 ) + 50" />
+				<xsl:choose>
+					<xsl:when test="/datacenter/@colormap and $colormap/colormap/limit">
+						<xsl:value-of select=" ( count(/datacenter/rack[group = $colormap/colormap/limit]) * 250 ) + 50" />
+					</xsl:when>
+
+					<xsl:otherwise>
+						<xsl:value-of select=" ( count(/datacenter/rack) * 250 ) + 50" />
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:attribute>
 			<xsl:attribute name="style">
 				<xsl:text>background-color: white</xsl:text>
@@ -87,7 +93,16 @@
 					<xsl:text>translate( 0, 100 )</xsl:text>
 				</xsl:attribute>
 			</xsl:if>
-			<xsl:apply-templates select="rack" />
+
+			<xsl:choose>
+				<xsl:when test="/datacenter/@colormap and $colormap/colormap/limit">
+					<xsl:apply-templates select="rack[group = $colormap/colormap/limit"/>
+				</xsl:when>
+
+				<xsl:otherwise>
+					<xsl:apply-templates select="rack" />
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:element>
 	</xsl:template>
 

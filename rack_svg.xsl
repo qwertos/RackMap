@@ -21,7 +21,19 @@
 			</xsl:variable>
 			<xsl:attribute name="version">1.1</xsl:attribute>
 			<xsl:attribute name="height">
-				<xsl:value-of select="100 + 100 + ( $maxHeight * $scale ) + 1"/>
+				<xsl:choose>
+					<xsl:when test="datacenter/name or datacenter/location or datacenter/owner or datacenter/contact">
+						<xsl:attribute name="transform">
+							<xsl:value-of select="100 + 100 + ( $maxHeight * $scale ) + 1"/>
+						</xsl:attribute>
+					</xsl:when>
+
+					<xsl:otherwise>
+						<xsl:attribute name="transform">
+							<xsl:value-of select="100 + ( $maxHeight * $scale ) + 1"/>
+						</xsl:attribute>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:attribute>
 			<xsl:attribute name="width">
 				<xsl:value-of select=" ( count(/datacenter/rack) * 250 ) + 50" />

@@ -9,6 +9,8 @@
 	<xsl:variable name="scale" select="/datacenter/@scale" />
 	<xsl:variable name="colormap" select="document(/datacenter/@colormap)" />
 	<xsl:variable name="RACKWIDTH" select="'200'" />
+	<xsl:variable name="RUHEIGHT" select="$scale" />
+	<xsl:variable name="MOUNT_GUTTER" select="'10'" />
 
 
 	<xsl:template match="/">
@@ -355,6 +357,53 @@
 				<xsl:text>translate(10,0)</xsl:text>
 			</xsl:attribute>
 
+			<!-- Calculate height/width per slot -->
+			<xsl:variable name="slotHeight" select="( $RUHEIGHT * ../height ) / @vertical"/>
+			<xsl:variable name="slotWidth"  select="( $RACKWIDTH - ( 2 * $MOUNT_GUTTER ) ) / @horizontal" />
+
+			<!-- Place Slots -->
+			<xsl:for-each select="slot">
+				<xsl:element name="g">
+					<!-- Place slot -->
+					<xsl:attribute name="transform">
+						<xsl:text>translate(</xsl:text>
+						<xsl:value-of select="$slotWidth * @x" />
+						<xsl:text>,</xsl:text>
+						<xsl:value-of select="$slotHeight * @y" />
+						<xsl:text>)</xsl:text>
+					</xsl:attribute>
+
+					<!-- Create Rect for slot -->
+					<xsl:element name="rect">
+						<xsl:attribute name="x">
+							<xsl:text>0</xsl:text>
+						</xsl:attribute>
+						<xsl:attribute name="y">
+							<xsl:text>0</xsl:text>
+						</xsl:attribute>
+						<xsl:attribute name="height">
+							<xsl:choose>
+								<xsl:when text="@yspan">
+									<xsl:value-of select="$slotHeight * @yspan"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="$slotHeight"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+						<xsl:attribute name="width">
+							<xsl:choose>
+								<xsl:when text="@xspan">
+									<xsl:value-of select="$slotWidth * @xspan"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="$slotWidth"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+					</xsl:element>
+				</xsl:element>				
+			</xsl:for-each>
 			
 		</xsl:element>	
 	</xsl:template>

@@ -385,6 +385,9 @@
 						<xsl:value-of select="@name"/>
 					</xsl:element>
 
+
+					<xsl:variable name="itemname" select="@name" />
+
 					<!-- Create Rect for slot -->
 					<xsl:element name="rect">
 

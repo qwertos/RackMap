@@ -367,11 +367,23 @@
 					<!-- Place slot -->
 					<xsl:attribute name="transform">
 						<xsl:text>translate(</xsl:text>
-						<xsl:value-of select="$slotWidth * @x" />
+						<xsl:value-of select="$slotWidth * ( @x - 1 )" />
 						<xsl:text>,</xsl:text>
-						<xsl:value-of select="$slotHeight * @y" />
+						<xsl:choose>
+							<xsl:when test="@yspan">
+								<xsl:value-of select="$slotHeight * ( ../@vertical - @yspan - @y + 1 )" />
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="$slotHeight * ( ../@vertical - @yspan )" />
+							</xsl:otherwise>
+						</xsl:choose>
 						<xsl:text>)</xsl:text>
 					</xsl:attribute>
+
+					<!-- Hover text of name -->
+					<xsl:element name="title">
+						<xsl:value-of select="@name"/>
+					</xsl:element>
 
 					<!-- Create Rect for slot -->
 					<xsl:element name="rect">
@@ -427,7 +439,6 @@
 
 			<xsl:variable name="itemname" select="name" />
 
-			<xsl:apply-templates select="internal-layout"/>
 
 			<!-- Add the triggers in hover text -->
 			<xsl:if test="/datacenter/@colormap">
@@ -490,6 +501,7 @@
 			<text x="20" y="15">
 				<xsl:value-of select="name" />
 			</text>
+			<xsl:apply-templates select="internal-layout"/>
 		</xsl:element>	
 	</xsl:template>
 

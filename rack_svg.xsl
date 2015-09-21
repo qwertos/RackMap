@@ -383,7 +383,7 @@
 						</xsl:attribute>
 						<xsl:attribute name="height">
 							<xsl:choose>
-								<xsl:when text="@yspan">
+								<xsl:when test="@yspan">
 									<xsl:value-of select="$slotHeight * @yspan"/>
 								</xsl:when>
 								<xsl:otherwise>
@@ -393,7 +393,7 @@
 						</xsl:attribute>
 						<xsl:attribute name="width">
 							<xsl:choose>
-								<xsl:when text="@xspan">
+								<xsl:when test="@xspan">
 									<xsl:value-of select="$slotWidth * @xspan"/>
 								</xsl:when>
 								<xsl:otherwise>

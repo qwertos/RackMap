@@ -358,8 +358,8 @@
 			</xsl:attribute>
 
 			<!-- Calculate height/width per slot -->
-			<xsl:variable name="slotHeight" select="( $RUHEIGHT * ../height ) / @vertical"/>
-			<xsl:variable name="slotWidth"  select="( $RACKWIDTH - ( 2 * $MOUNT_GUTTER ) ) / @horizontal" />
+			<xsl:variable name="slotHeight" select="( $RUHEIGHT * ../height ) div @vertical"/>
+			<xsl:variable name="slotWidth"  select="( $RACKWIDTH - ( 2 * $MOUNT_GUTTER ) ) div @horizontal" />
 
 			<!-- Place Slots -->
 			<xsl:for-each select="slot">

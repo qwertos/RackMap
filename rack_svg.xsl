@@ -375,6 +375,12 @@
 
 					<!-- Create Rect for slot -->
 					<xsl:element name="rect">
+						<xsl:attribute name="fill">
+							<xsl:text>none</xsl:text>
+						</xsl:attribute>
+						<xsl:attribute name="stroke">
+							<xsl:text>black</xsl:text>
+						</xsl:attribute>
 						<xsl:attribute name="x">
 							<xsl:text>0</xsl:text>
 						</xsl:attribute>

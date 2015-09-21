@@ -387,9 +387,35 @@
 
 					<!-- Create Rect for slot -->
 					<xsl:element name="rect">
+
+						<xsl:choose>
+							<xsl:when test="@fill">
+								<xsl:attribute name="fill">
+									<xsl:value-of select="@fill" />
+								</xsl:attribute>
+							</xsl:when>
+							<xsl:when test="/datacenter/@colormap">
+								<xsl:choose>
+									<xsl:when test="$colormap/colormap/item[name=$itemname]">
+										<xsl:attribute name="fill">
+											<xsl:value-of select="$colormap/colormap/item[name=$itemname]/color" />
+										</xsl:attribute>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:attribute name="fill">lightgray</xsl:attribute>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:attribute name="fill">lightgray</xsl:attribute>
+							</xsl:otherwise>
+						</xsl:choose>
+						
+						<!--
 						<xsl:attribute name="fill">
 							<xsl:text>none</xsl:text>
 						</xsl:attribute>
+						-->
 						<xsl:attribute name="stroke">
 							<xsl:text>black</xsl:text>
 						</xsl:attribute>

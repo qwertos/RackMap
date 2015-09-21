@@ -374,7 +374,7 @@
 								<xsl:value-of select="$slotHeight * ( ../@vertical - @yspan - @y + 1 )" />
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:value-of select="$slotHeight * ( ../@vertical - @yspan )" />
+								<xsl:value-of select="$slotHeight * ( ../@vertical - @y )" />
 							</xsl:otherwise>
 						</xsl:choose>
 						<xsl:text>)</xsl:text>

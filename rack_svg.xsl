@@ -498,9 +498,11 @@
 				</xsl:attribute>
 			</xsl:element>
 
+			<!--
 			<text x="20" y="15">
 				<xsl:value-of select="name" />
 			</text>
+			-->
 			<xsl:apply-templates select="internal-layout"/>
 		</xsl:element>	
 	</xsl:template>

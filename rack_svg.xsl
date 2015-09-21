@@ -8,6 +8,7 @@
 	<xsl:output method="xml" indent="yes" />
 	<xsl:variable name="scale" select="/datacenter/@scale" />
 	<xsl:variable name="colormap" select="document(/datacenter/@colormap)" />
+	<xsl:variable name="RACKWIDTH" select="'200'" />
 
 
 	<xsl:template match="/">
@@ -32,11 +33,11 @@
 			<xsl:attribute name="width">
 				<xsl:choose>
 					<xsl:when test="/datacenter/@colormap and $colormap/colormap/limit">
-						<xsl:value-of select=" ( count(/datacenter/rack[group = $colormap/colormap/limit]) * 250 ) + 50" />
+						<xsl:value-of select=" ( count(/datacenter/rack[group = $colormap/colormap/limit]) * ( $RACKWIDTH + 50 ) ) + 50" />
 					</xsl:when>
 
 					<xsl:otherwise>
-						<xsl:value-of select=" ( count(/datacenter/rack) * 250 ) + 50" />
+						<xsl:value-of select=" ( count(/datacenter/rack) * ( $RACKWIDTH + 50 ) ) + 50" />
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
@@ -114,13 +115,13 @@
 				<xsl:choose>
 					<xsl:when test="/datacenter/@colormap and $colormap/colormap/limit">
 						<xsl:text>translate(</xsl:text>
-						<xsl:value-of select="( count(preceding-sibling::rack[group = $colormap/colormap/limit]) * 250 ) + 50"/>
+						<xsl:value-of select="( count(preceding-sibling::rack[group = $colormap/colormap/limit]) * ( $RACKWIDTH + 50 ) ) + 50"/>
 						<xsl:text>, 0)</xsl:text>
 					</xsl:when>
 
 					<xsl:otherwise>
 						<xsl:text>translate(</xsl:text>
-						<xsl:value-of select="( count(preceding-sibling::rack) * 250 ) + 50"/>
+						<xsl:value-of select="( count(preceding-sibling::rack) * ( $RACKWIDTH + 50 ) ) + 50"/>
 						<xsl:text>, 0)</xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
@@ -150,7 +151,9 @@
 				<xsl:element name="rect">
 					<xsl:attribute name="x">0</xsl:attribute>
 					<xsl:attribute name="y">0</xsl:attribute>
-					<xsl:attribute name="width">200</xsl:attribute>
+					<xsl:attribute name="width">
+						<xsl:value-of select="$RACKWIDTH" />
+					</xsl:attribute>
 					<xsl:attribute name="fill">none</xsl:attribute>
 					<xsl:attribute name="stroke">black</xsl:attribute>
 					<xsl:attribute name="height">
@@ -305,7 +308,9 @@
 			<xsl:element name="rect">
 				<xsl:attribute name="x">0</xsl:attribute>
 				<xsl:attribute name="y">0</xsl:attribute>
-				<xsl:attribute name="width">200</xsl:attribute>
+				<xsl:attribute name="width">
+					<xsl:value-of select="$RACKWIDTH" />
+				</xsl:attribute>
 				<xsl:choose>
 					<xsl:when test="@fill">
 						<xsl:attribute name="fill">

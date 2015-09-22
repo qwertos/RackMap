@@ -380,13 +380,25 @@
 						<xsl:text>)</xsl:text>
 					</xsl:attribute>
 
+					<!-- Get itemname -->
+					<xsl:variable name="itemname" select="@name" />
+				
 					<!-- Hover text of name -->
 					<xsl:element name="title">
 						<xsl:value-of select="@name"/>
+
+						<!-- Get Triggers -->
+						<xsl:if test="/datacenter/@colormap">
+							<xsl:if test="$colormap/colormap/item[name=$itemname]/trigger">
+								<xsl:for-each select="$colormap/colormap/item[name=$itemname]/trigger" >
+									<xsl:text>
+		- </xsl:text>
+									<xsl:value-of select="." />
+								</xsl:for-each>
+							</xsl:if>
+						</xsl:if>
 					</xsl:element>
 
-
-					<xsl:variable name="itemname" select="@name" />
 
 					<!-- Create Rect for slot -->
 					<xsl:element name="rect">

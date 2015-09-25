@@ -494,18 +494,6 @@
 				</xsl:if>
 			</xsl:if>
 
-			<!-- XXX: WAT??-->
-			<!--
-			<xsl:if test="trigger">
-				<xsl:element name="title">
-					<xsl:for-each select="trigger">
-						<xsl:value-of select="." />
-						<xsl:text>
-						</xsl:text>
-					</xsl:for-each>
-				</xsl:element>
-			</xsl:if>
-			-->
 
 			<xsl:element name="rect">
 				<xsl:attribute name="x">0</xsl:attribute>
@@ -539,12 +527,17 @@
 				</xsl:attribute>
 			</xsl:element>
 
-			<!--
-			<text x="20" y="15">
-				<xsl:value-of select="name" />
-			</text>
-			-->
-			<xsl:apply-templates select="internal-layout"/>
+			<xsl:choose>
+				<xsl:when test="/datacenter/@bladecenter-as-item = 'true'">
+					<text x="20" y="15">
+						<xsl:value-of select="name" />
+					</text>
+				</xsl:when>
+
+				<xsl:otherwise>
+					<xsl:apply-templates select="internal-layout"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:element>	
 	</xsl:template>
 

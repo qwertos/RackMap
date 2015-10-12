@@ -98,41 +98,26 @@
 				</xsl:attribute>
 			</xsl:if>
 
-			<xsl:choose>
-				<xsl:when test="/datacenter/@colormap and $colormap/colormap/limit">
-					<xsl:apply-templates select="rack[group = $colormap/colormap/limit]"/>
-				</xsl:when>
-
-				<xsl:otherwise>
-					<xsl:apply-templates select="rack" />
-				</xsl:otherwise>
-			</xsl:choose>
+			<xsl:apply-templates select="rack" />
 		</xsl:element>
 	</xsl:template>
 
 
 
 	<xsl:template match="rack">
+		<xsl:param name="pSiblings" select="count(preceding-sibling::rack)" />
 		<xsl:choose>
 			<xsl:when test="@herf">
-				<xsl:apply-templates select="document(@href)/rack" />
+				<xsl:apply-templates select="document(@href)/rack">
+					<xsl:with-param name="pSiblings" select="$pSiblings" /> <!-- XXX -->
+				</xsl:apply-templates>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="g">
 					<xsl:attribute name="transform">
-						<xsl:choose>
-							<xsl:when test="/datacenter/@colormap and $colormap/colormap/limit">
-								<xsl:text>translate(</xsl:text>
-								<xsl:value-of select="( count(preceding-sibling::rack[group = $colormap/colormap/limit]) * ( $RACKWIDTH + 50 ) ) + 50"/>
-								<xsl:text>, 0)</xsl:text>
-							</xsl:when>
-
-							<xsl:otherwise>
-								<xsl:text>translate(</xsl:text>
-								<xsl:value-of select="( count(preceding-sibling::rack) * ( $RACKWIDTH + 50 ) ) + 50"/>
-								<xsl:text>, 0)</xsl:text>
-							</xsl:otherwise>
-						</xsl:choose>
+						<xsl:text>translate(</xsl:text>
+						<xsl:value-of select="( $pSiblings * ( $RACKWIDTH + 50 ) ) + 50"/> <!-- XXX -->
+						<xsl:text>, 0)</xsl:text>
 					</xsl:attribute>
 
 					<!-- Add Name -->

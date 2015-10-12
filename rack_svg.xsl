@@ -275,7 +275,7 @@
 			<xsl:variable name="itemname" select="name" />
 
 			<!-- Create hover text -->
-			<xsl:if test="/datacenter/@colormap">
+			<xsl:if test="$colormap">
 				<xsl:if test="$colormap/colormap/item[name=$itemname]/trigger">
 					<xsl:element name="title">
 						<xsl:for-each select="$colormap/colormap/item[name=$itemname]/trigger" >
@@ -313,7 +313,7 @@
 							<xsl:value-of select="@fill" />
 						</xsl:attribute>
 					</xsl:when>
-					<xsl:when test="/datacenter/@colormap">
+					<xsl:when test="$colormap">
 						<xsl:choose>
 							<xsl:when test="$colormap/colormap/item[name=$itemname]">
 								<xsl:attribute name="fill">
@@ -382,7 +382,7 @@
 						<xsl:value-of select="@name"/>
 
 						<!-- Get Triggers -->
-						<xsl:if test="/datacenter/@colormap">
+						<xsl:if test="$colormap">
 							<xsl:if test="$colormap/colormap/item[name=$itemname]/trigger">
 								<xsl:for-each select="$colormap/colormap/item[name=$itemname]/trigger" >
 									<xsl:text>
@@ -403,7 +403,7 @@
 									<xsl:value-of select="@fill" />
 								</xsl:attribute>
 							</xsl:when>
-							<xsl:when test="/datacenter/@colormap">
+							<xsl:when test="$colormap">
 								<xsl:choose>
 									<xsl:when test="$colormap/colormap/item[name=$itemname]">
 										<xsl:attribute name="fill">
@@ -476,7 +476,7 @@
 
 
 			<!-- Add the triggers in hover text -->
-			<xsl:if test="/datacenter/@colormap">
+			<xsl:if test="$colormap">
 				<xsl:if test="$colormap/colormap/item[name=$itemname]/trigger">
 					<xsl:element name="title">
 						<xsl:for-each select="$colormap/colormap/item[name=$itemname]/trigger" >
@@ -499,7 +499,7 @@
 							<xsl:value-of select="@fill" />
 						</xsl:attribute>
 					</xsl:when>
-					<xsl:when test="/datacenter/@colormap">
+					<xsl:when test="$colormap">
 						<xsl:choose>
 							<xsl:when test="$colormap/colormap/item[name=$itemname]">
 								<xsl:attribute name="fill">

@@ -66,6 +66,7 @@
 
 
 	<xsl:template match="datacenter">
+
 		<xsl:if test="name">
 			<text x="20" y="20" fill="black">
 				<xsl:value-of select="name" />
@@ -112,96 +113,103 @@
 
 
 	<xsl:template match="rack">
-		<xsl:element name="g">
-			<xsl:attribute name="transform">
-				<xsl:choose>
-					<xsl:when test="/datacenter/@colormap and $colormap/colormap/limit">
-						<xsl:text>translate(</xsl:text>
-						<xsl:value-of select="( count(preceding-sibling::rack[group = $colormap/colormap/limit]) * ( $RACKWIDTH + 50 ) ) + 50"/>
-						<xsl:text>, 0)</xsl:text>
-					</xsl:when>
+		<xsl:choose>
+			<xsl:when test="@herf">
+				<xsl:apply-templates select="document(@href)/rack" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="g">
+					<xsl:attribute name="transform">
+						<xsl:choose>
+							<xsl:when test="/datacenter/@colormap and $colormap/colormap/limit">
+								<xsl:text>translate(</xsl:text>
+								<xsl:value-of select="( count(preceding-sibling::rack[group = $colormap/colormap/limit]) * ( $RACKWIDTH + 50 ) ) + 50"/>
+								<xsl:text>, 0)</xsl:text>
+							</xsl:when>
 
-					<xsl:otherwise>
-						<xsl:text>translate(</xsl:text>
-						<xsl:value-of select="( count(preceding-sibling::rack) * ( $RACKWIDTH + 50 ) ) + 50"/>
-						<xsl:text>, 0)</xsl:text>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:attribute>
-
-			<!-- Add Name -->
-			<text x="20" y="20" fill="black">
-				<xsl:value-of select="name" />
-			</text>
-			<!-- Add location -->
-			<text x="20" y="40" fill="black">
-				<xsl:value-of select="location" />
-			</text>
-			<!-- Add owner -->
-			<text x="20" y="60" fill="black">
-				<xsl:value-of select="owner" />
-			</text>
-			<!-- Add contact -->
-			<text x="20" y="80" fill="black">
-				<xsl:value-of select="contact" />
-			</text>
-	
-			<!-- Graphical -->	
-			<g transform="translate(10,100)">
-
-				<!-- Rectangle around rack -->
-				<xsl:element name="rect">
-					<xsl:attribute name="x">0</xsl:attribute>
-					<xsl:attribute name="y">0</xsl:attribute>
-					<xsl:attribute name="width">
-						<xsl:value-of select="$RACKWIDTH" />
+							<xsl:otherwise>
+								<xsl:text>translate(</xsl:text>
+								<xsl:value-of select="( count(preceding-sibling::rack) * ( $RACKWIDTH + 50 ) ) + 50"/>
+								<xsl:text>, 0)</xsl:text>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:attribute>
-					<xsl:attribute name="fill">none</xsl:attribute>
-					<xsl:attribute name="stroke">black</xsl:attribute>
-					<xsl:attribute name="height">
-						<xsl:value-of select="$scale * height" />
-					</xsl:attribute>
+
+					<!-- Add Name -->
+					<text x="20" y="20" fill="black">
+						<xsl:value-of select="name" />
+					</text>
+					<!-- Add location -->
+					<text x="20" y="40" fill="black">
+						<xsl:value-of select="location" />
+					</text>
+					<!-- Add owner -->
+					<text x="20" y="60" fill="black">
+						<xsl:value-of select="owner" />
+					</text>
+					<!-- Add contact -->
+					<text x="20" y="80" fill="black">
+						<xsl:value-of select="contact" />
+					</text>
+			
+					<!-- Graphical -->	
+					<g transform="translate(10,100)">
+
+						<!-- Rectangle around rack -->
+						<xsl:element name="rect">
+							<xsl:attribute name="x">0</xsl:attribute>
+							<xsl:attribute name="y">0</xsl:attribute>
+							<xsl:attribute name="width">
+								<xsl:value-of select="$RACKWIDTH" />
+							</xsl:attribute>
+							<xsl:attribute name="fill">none</xsl:attribute>
+							<xsl:attribute name="stroke">black</xsl:attribute>
+							<xsl:attribute name="height">
+								<xsl:value-of select="$scale * height" />
+							</xsl:attribute>
+						</xsl:element>
+
+						<!-- Rack Unit ticks -->
+						<xsl:call-template name="rubreaks">
+							<xsl:with-param name="pCurrent" select="1" />
+							<xsl:with-param name="pStop" select="height" />
+						</xsl:call-template>
+
+						<!-- Rack Unit numbers -->
+						<xsl:call-template name="ruindex">
+							<xsl:with-param name="pCurrent" select="1" />
+							<xsl:with-param name="pStop" select="height" />
+						</xsl:call-template>
+
+						<!-- Add items -->
+						<xsl:apply-templates select="item"/>
+						<xsl:apply-templates select="bladecenter"/>
+
+						<!-- Vert bar left -->
+						<xsl:element name="line">
+							<xsl:attribute name="x1">10</xsl:attribute>
+							<xsl:attribute name="y1">0</xsl:attribute>
+							<xsl:attribute name="x2">10</xsl:attribute>
+							<xsl:attribute name="y2">
+								<xsl:value-of select="$scale * height" />
+							</xsl:attribute>
+							<xsl:attribute name="stroke">black</xsl:attribute>
+						</xsl:element>
+
+						<!-- Vert bar right -->
+						<xsl:element name="line">
+							<xsl:attribute name="x1">190</xsl:attribute>
+							<xsl:attribute name="y1">0</xsl:attribute>
+							<xsl:attribute name="x2">190</xsl:attribute>
+							<xsl:attribute name="y2">
+								<xsl:value-of select="$scale * height" />
+							</xsl:attribute>
+							<xsl:attribute name="stroke">black</xsl:attribute>
+						</xsl:element>
+					</g>
 				</xsl:element>
-
-				<!-- Rack Unit ticks -->
-				<xsl:call-template name="rubreaks">
-					<xsl:with-param name="pCurrent" select="1" />
-					<xsl:with-param name="pStop" select="height" />
-				</xsl:call-template>
-
-				<!-- Rack Unit numbers -->
-				<xsl:call-template name="ruindex">
-					<xsl:with-param name="pCurrent" select="1" />
-					<xsl:with-param name="pStop" select="height" />
-				</xsl:call-template>
-
-				<!-- Add items -->
-				<xsl:apply-templates select="item"/>
-				<xsl:apply-templates select="bladecenter"/>
-
-				<!-- Vert bar left -->
-				<xsl:element name="line">
-					<xsl:attribute name="x1">10</xsl:attribute>
-					<xsl:attribute name="y1">0</xsl:attribute>
-					<xsl:attribute name="x2">10</xsl:attribute>
-					<xsl:attribute name="y2">
-						<xsl:value-of select="$scale * height" />
-					</xsl:attribute>
-					<xsl:attribute name="stroke">black</xsl:attribute>
-				</xsl:element>
-
-				<!-- Vert bar right -->
-				<xsl:element name="line">
-					<xsl:attribute name="x1">190</xsl:attribute>
-					<xsl:attribute name="y1">0</xsl:attribute>
-					<xsl:attribute name="x2">190</xsl:attribute>
-					<xsl:attribute name="y2">
-						<xsl:value-of select="$scale * height" />
-					</xsl:attribute>
-					<xsl:attribute name="stroke">black</xsl:attribute>
-				</xsl:element>
-			</g>
-		</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 

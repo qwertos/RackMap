@@ -11,6 +11,7 @@
 	<xsl:variable name="RACKWIDTH" select="'200'" />
 	<xsl:variable name="RUHEIGHT" select="'20'" />
 	<xsl:variable name="MOUNT_GUTTER" select="'10'" />
+	<xsl:variable name="BC_AS_ITEM" select="/datacenter/@bladecenter-as-item" />
 
 
 	<xsl:template match="/">
@@ -521,7 +522,7 @@
 			</xsl:element>
 
 			<xsl:choose>
-				<xsl:when test="/datacenter/@bladecenter-as-item = 'true'">
+				<xsl:when test="$BC_AS_ITEM = 'true'">
 					<text x="20" y="15">
 						<xsl:value-of select="name" />
 					</text>

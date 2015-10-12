@@ -9,7 +9,7 @@
 	<xsl:variable name="scale" select="/datacenter/@scale" />
 	<xsl:variable name="colormap" select="document(/datacenter/@colormap)" />
 	<xsl:variable name="RACKWIDTH" select="'200'" />
-	<xsl:variable name="RUHEIGHT" select="$scale" />
+	<xsl:variable name="RUHEIGHT" select="'20'" />
 	<xsl:variable name="MOUNT_GUTTER" select="'10'" />
 
 
@@ -17,7 +17,7 @@
 		<xsl:element name="svg">
 			<xsl:variable name="maxHeight">
 				<xsl:call-template name="maximum">
-					<xsl:with-param name="pSeq" select="/datacenter/rack/height" />
+					<xsl:with-param name="pSeq" select="/datacenter/rack/height | document(/datacenter/rack/@href)/rack/height" />
 				</xsl:call-template>
 			</xsl:variable>
 			<xsl:attribute name="version">1.1</xsl:attribute>
@@ -107,7 +107,7 @@
 	<xsl:template match="rack">
 		<xsl:param name="pSiblings" select="count(preceding-sibling::rack)" />
 		<xsl:choose>
-			<xsl:when test="@herf">
+			<xsl:when test="@href">
 				<xsl:apply-templates select="document(@href)/rack">
 					<xsl:with-param name="pSiblings" select="$pSiblings" /> <!-- XXX -->
 				</xsl:apply-templates>
@@ -150,7 +150,7 @@
 							<xsl:attribute name="fill">none</xsl:attribute>
 							<xsl:attribute name="stroke">black</xsl:attribute>
 							<xsl:attribute name="height">
-								<xsl:value-of select="$scale * height" />
+								<xsl:value-of select="$RUHEIGHT * height" />
 							</xsl:attribute>
 						</xsl:element>
 

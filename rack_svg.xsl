@@ -47,7 +47,13 @@
 			<xsl:attribute name="style">
 				<xsl:text>background-color: white</xsl:text>
 			</xsl:attribute>
-
+			<font>
+				<font-face font-family="hackregular">
+					<font-face-src>
+						<font-face-uri xlink:href="hack-regular-webfont.svg#hackregular" />
+					</font-face-src>
+				</font-face>
+			</font-face>
 
 			<xsl:apply-templates select="datacenter" />
 		</xsl:element>

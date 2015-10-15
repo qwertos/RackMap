@@ -204,7 +204,7 @@
 		<xsl:param name="pStop" />
 
 		<xsl:element name="text">
-			<xsl:attribute name="x">-20</xsl:attribute>
+			<xsl:attribute name="x">-22</xsl:attribute>
 			<xsl:attribute name="y">
 				<xsl:value-of select="($scale * ( height - $pCurrent )) + 15 " />
 			</xsl:attribute>
@@ -336,7 +336,7 @@
 			</xsl:element>
 
 			<!-- Item name -->
-			<text x="20" y="15">
+			<text x="15" y="15">
 				<xsl:value-of select="name" />
 			</text>
 		</xsl:element>	
@@ -523,7 +523,7 @@
 
 			<xsl:choose>
 				<xsl:when test="$BC_AS_ITEM = 'true'">
-					<text x="20" y="15">
+					<text x="15" y="15">
 						<xsl:value-of select="name" />
 					</text>
 				</xsl:when>

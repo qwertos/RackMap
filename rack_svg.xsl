@@ -53,7 +53,7 @@
 						<font-face-uri xlink:href="hack-regular-webfont.svg#hackregular" />
 					</font-face-src>
 				</font-face>
-			</font-face>
+			</font>
 
 			<xsl:apply-templates select="datacenter" />
 		</xsl:element>
@@ -75,7 +75,7 @@
 	<xsl:template match="datacenter">
 
 		<xsl:if test="name">
-			<text x="20" y="20" fill="black">
+			<text font-face="hackregular" x="20" y="20" fill="black">
 				<xsl:value-of select="name" />
 			</text>
 		</xsl:if>

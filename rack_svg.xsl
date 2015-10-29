@@ -350,7 +350,7 @@
 
 			<!-- Item name -->
 			<text x="20" y="15">
-				<xsl:value-of select="name" />
+				<xsl:call-template name="get-item-name" />
 			</text>
 		</xsl:element>	
 	</xsl:template>
@@ -497,7 +497,7 @@
 
 							</xsl:choose>
 
-							<xsl:call-template name="text" />
+							<xsl:call-template name="get-slot-name" />
 						</xsl:element>
 					</xsl:if>
 				</xsl:element>				
@@ -507,7 +507,7 @@
 	</xsl:template>
 
 
-	<xsl:template name="text">
+	<xsl:template name="get-slot-name">
 		<xsl:choose>
 			<xsl:when test="@visible-name">
 				<xsl:value-of select="@visible-name" />
@@ -515,6 +515,19 @@
 
 			<xsl:when test="@name">
 				<xsl:value-of select="@name" />
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+
+
+	<xsl:template name="get-item-name">
+		<xsl:choose>
+			<xsl:when test="visible-name">
+				<xsl:value-of select="visible-name" />
+			</xsl:when>
+
+			<xsl:when test="name">
+				<xsl:value-of select="name" />
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>

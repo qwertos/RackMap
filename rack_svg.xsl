@@ -485,13 +485,26 @@
 
 							</xsl:choose>
 
-							<xsl:value-of select="@name" />
+							<xsl:call-template name="text" />
 						</xsl:element>
 					</xsl:if>
 				</xsl:element>				
 			</xsl:for-each>
 			
 		</xsl:element>	
+	</xsl:template>
+
+
+	<xsl:template name="text">
+		<xsl:choose>
+			<xsl:when test="@visible-name">
+				<xsl:value-of select="@visible-name" />
+			</xsl:when>
+
+			<xsl:when test="@name">
+				<xsl:value-of select="@name" />
+			</xsl:when>
+		</xsl:choose>
 	</xsl:template>
 
 

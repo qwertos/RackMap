@@ -68,6 +68,18 @@
 
 
 	<xsl:template match="datacenter">
+		<xsl:if test="style">
+			<xsl:element name="style">
+				<xsl:attribute name="rel">
+					<xsl:text>stylesheet</xsl:text>
+				</xsl:attribute>
+				<xsl:attribute name="type">
+					<xsl:text>text/css</xsl:text>
+				</xsl:attribute>
+
+				<xsl:value-of select="style" />
+			</xsl:element>
+		</xsl:if>
 
 		<xsl:if test="name">
 			<text x="20" y="20" fill="black">

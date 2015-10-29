@@ -12,6 +12,7 @@
 	<xsl:variable name="RUHEIGHT" select="'20'" />
 	<xsl:variable name="MOUNT_GUTTER" select="'10'" />
 	<xsl:variable name="BC_AS_ITEM" select="/datacenter/@bladecenter-as-item" />
+	<xsl:variable name="BLADE_TEXT" select="/datacenter/@blade-text" />
 
 
 	<xsl:template match="/">
@@ -455,6 +456,13 @@
 							</xsl:choose>
 						</xsl:attribute>
 					</xsl:element>
+					
+					<!-- Add text -->
+					<xsl:if test="$BLADE_TEXT = 'true'">
+						<text x="5" y="15">
+							<xsl:value-of select="@name" />
+						</text>
+					</xsl:if>
 				</xsl:element>				
 			</xsl:for-each>
 			

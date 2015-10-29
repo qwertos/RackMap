@@ -459,9 +459,34 @@
 					
 					<!-- Add text -->
 					<xsl:if test="$BLADE_TEXT = 'true'">
-						<text x="5" y="15">
+						<xsl:element name="text">
+							<xsl:choose>
+
+								<xsl:when test="( @text-rotate = 'true' ) or ( ../@text-rotate = 'true' )">
+									<xsl:attribute name="transform">
+										<xsl:text>rotate(90)</xsl:text>
+									</xsl:attribute>
+									<xsl:attribute name="x">
+										<xsl:text>5</xsl:text>
+									</xsl:attribute>
+									<xsl:attribute name="y">
+										<xsl:text>-5</xsl:text>
+									</xsl:attribute>
+								</xsl:when>
+
+								<xsl:otherwise>
+									<xsl:attribute name="x">
+										<xsl:text>5</xsl:text>
+									</xsl:attribute>
+									<xsl:attribute name="y">
+										<xsl:text>15</xsl:text>
+									</xsl:attribute>
+								</xsl:otherwise>
+
+							</xsl:choose>
+
 							<xsl:value-of select="@name" />
-						</text>
+						</xsl:element>
 					</xsl:if>
 				</xsl:element>				
 			</xsl:for-each>
